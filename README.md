@@ -6,6 +6,21 @@ A Claude Code skill that takes large documents (PDF, DOCX, TXT, Markdown) or ent
 
 You need four things installed on your machine before using this skill. Follow the instructions for your operating system.
 
+### macOS users: Install Homebrew first
+
+Most of the tools below can be installed on macOS using Homebrew, a package manager for macOS. If you don't already have it, open **Terminal** (search for "Terminal" in Spotlight) and paste this command:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Follow the on-screen instructions. When it finishes, close and reopen Terminal before continuing.
+
+You can verify Homebrew is installed by running:
+```bash
+brew --version
+```
+
 ### 1. Node.js (v18 or newer)
 
 Node.js runs the script that generates the final Word and PDF files.
