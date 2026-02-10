@@ -1,0 +1,17 @@
+{
+  "name": "document-summarizer",
+  "owner": {
+    "name": "Josue Rodriguez"
+  },
+  "plugins": [
+    {
+      "name": "document-summarizer",
+      "source": "./",
+      "description": "Summarize large documents (PDF, DOCX, TXT, MD) into professional Word and PDF reports",
+      "version": "1.0.0",
+      "author": {
+        "name": "Josue Rodriguez"
+      }
+    }
+  ]
+}
