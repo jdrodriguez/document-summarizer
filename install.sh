@@ -1,8 +1,17 @@
 #!/bin/bash
-# Install the document-summarizer skill by symlinking into ~/.claude/skills/
+# Install the document-summarizer plugin dependencies.
+#
+# Preferred installation method:
+#   In Claude Code, run: /plugin install document-summarizer
+#
+# This script is a fallback that:
+#   1. Symlinks the skill into ~/.claude/skills/ (legacy method)
+#   2. Installs Python dependencies
+#   3. Installs npm dependencies
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SKILL_SOURCE="$SCRIPT_DIR/skills/summarize"
 SKILLS_DIR="$HOME/.claude/skills"
 SKILL_LINK="$SKILLS_DIR/document-summarizer"
 
@@ -16,13 +25,13 @@ if [ -L "$SKILL_LINK" ] || [ -e "$SKILL_LINK" ]; then
 fi
 
 # Create symlink
-ln -s "$SCRIPT_DIR" "$SKILL_LINK"
-echo "Installed: $SKILL_LINK -> $SCRIPT_DIR"
+ln -s "$SKILL_SOURCE" "$SKILL_LINK"
+echo "Installed: $SKILL_LINK -> $SKILL_SOURCE"
 
 # Check Python dependencies
 echo ""
 echo "Checking Python dependencies..."
-python3 "$SCRIPT_DIR/scripts/check_dependencies.py"
+python3 "$SKILL_SOURCE/scripts/check_dependencies.py"
 dep_status=$?
 
 if [ $dep_status -eq 2 ]; then
@@ -53,4 +62,4 @@ else
 fi
 
 echo ""
-echo "Ready to use! Open Claude Code and invoke with: /document-summarizer"
+echo "Ready to use! Open Claude Code and invoke with: /document-summarizer:summarize"

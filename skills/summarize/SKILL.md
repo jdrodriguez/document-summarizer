@@ -1,5 +1,5 @@
 ---
-name: document-summarizer
+name: summarize
 description: "Process and summarize large documents (PDF, DOCX, TXT, Markdown) or entire directories of mixed documents. Automatically chunks documents into manageable sections, coordinates a team of agents for parallel summarization, and produces a unified report with executive summary, document structure outline, and section-by-section summaries. Use when: (1) a user provides a file or folder and asks for a summary, overview, analysis, or key takeaways, (2) a user says 'summarize this document', 'summarize these documents', 'give me an executive summary', 'what does this document say', or 'analyze this report', (3) any document processing task where files are too large to read in a single pass, (4) a user points to a directory containing multiple PDFs, DOCX, TXT, or MD files to summarize together."
 ---
 

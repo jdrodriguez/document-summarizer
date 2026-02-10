@@ -1,10 +1,10 @@
 # Document Summarizer
 
-A Claude Code skill that takes large documents (PDF, DOCX, TXT, Markdown) or entire folders of mixed documents and produces a professional summary report in both Word (.docx) and PDF formats. It automatically splits documents into manageable chunks, coordinates multiple AI agents to summarize sections in parallel, and assembles everything into a single unified report with an executive summary, document structure outline, and section-by-section breakdowns.
+A Claude Code plugin that takes large documents (PDF, DOCX, TXT, Markdown) or entire folders of mixed documents and produces a professional summary report in both Word (.docx) and PDF formats. It automatically splits documents into manageable chunks, coordinates multiple AI agents to summarize sections in parallel, and assembles everything into a single unified report with an executive summary, document structure outline, and section-by-section breakdowns.
 
 ## Prerequisites
 
-You need four things installed on your machine before using this skill. Follow the instructions for your operating system.
+You need four things installed on your machine before using this plugin. Follow the instructions for your operating system.
 
 ### macOS users: Install Homebrew first
 
@@ -28,7 +28,7 @@ Node.js runs the script that generates the final Word and PDF files.
 **macOS**:
 Download the macOS installer from https://nodejs.org (choose the LTS version). Open the `.pkg` file and follow the prompts.
 
-Alternatively, if you use Homebrew: `brew install node`
+Alternatively, if you have Homebrew: `brew install node`
 
 **Windows**:
 Download the Windows installer from https://nodejs.org (choose the LTS version). Run it and follow the prompts. Make sure "Add to PATH" is checked during installation.
@@ -52,7 +52,7 @@ Python handles the document text extraction and chunking.
 **macOS**:
 Download the macOS installer from https://www.python.org/downloads/. Open the `.pkg` file and follow the prompts.
 
-Alternatively, if you use Homebrew: `brew install python3`
+Alternatively, if you have Homebrew: `brew install python3`
 
 **Windows**:
 Download from https://www.python.org/downloads/. During installation, **check the box that says "Add Python to PATH"** -- this is critical.
@@ -71,16 +71,9 @@ python3 --version   # should print 3.9.x or higher
 
 Poppler provides the `pdftotext` command used as a fallback for extracting text from PDFs. This is optional but recommended for best results with PDFs.
 
-**macOS**:
-If you have Homebrew: `brew install poppler`
+**macOS** (with Homebrew): `brew install poppler`
 
-If you don't have Homebrew, you can install Homebrew first with:
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-Then run `brew install poppler`.
-
-Alternatively, the skill will still work without Poppler -- it uses PyMuPDF as the primary PDF extractor and only falls back to `pdftotext` when needed.
+The plugin will still work without Poppler -- it uses PyMuPDF as the primary PDF extractor and only falls back to `pdftotext` when needed.
 
 **Windows**:
 Download from https://github.com/ossamamehmood/Poppler/releases. Extract the zip file, then add the `bin/` folder inside it to your system PATH.
@@ -92,7 +85,7 @@ sudo apt-get install -y poppler-utils
 
 ### 4. Claude Code
 
-Claude Code is the AI-powered command-line tool that runs this skill. Once you have Node.js installed, open a terminal and run:
+Claude Code is the AI-powered command-line tool that runs this plugin. Once you have Node.js installed, open a terminal and run:
 
 ```bash
 npm install -g @anthropic-ai/claude-code
@@ -112,56 +105,58 @@ claude
 
 It will walk you through authentication on first run.
 
-## Installing the Skill
+## Installing the Plugin
 
-### Step 1: Download this repository
+### Option A: Plugin install (recommended)
 
-**Option A** -- Clone with git (if you have git installed):
-```bash
-git clone https://github.com/jdrodriguez/document-summarizer.git
-cd document-summarizer
+If this plugin is available through a Claude Code marketplace, install it directly from within Claude Code:
+
+```
+/plugin install document-summarizer
 ```
 
-**Option B** -- Download the ZIP:
+This is the easiest method and handles everything automatically.
+
+### Option B: Install from GitHub
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/jdrodriguez/document-summarizer.git
+   ```
+
+2. Install dependencies:
+   ```bash
+   cd document-summarizer
+   chmod +x install.sh
+   ./install.sh
+   ```
+
+   This installs the required Python packages (`pdfplumber`, `PyMuPDF`, `python-docx`, `tiktoken`) and npm packages (`docx`, `pdfkit`).
+
+3. Test the plugin locally by launching Claude Code with the plugin directory:
+   ```bash
+   claude --plugin-dir /path/to/document-summarizer
+   ```
+
+### Option C: Download the ZIP
+
 1. Go to https://github.com/jdrodriguez/document-summarizer
 2. Click the green "Code" button, then "Download ZIP"
 3. Unzip the downloaded file
-4. Open a terminal and `cd` into the unzipped folder
+4. Open a terminal, `cd` into the unzipped folder, and run:
+   ```bash
+   chmod +x install.sh
+   ./install.sh
+   ```
 
-### Step 2: Run the install script
+### Verify the installation
 
-```bash
-chmod +x install.sh
-./install.sh
+Open Claude Code and type:
 ```
-
-This does three things:
-1. Creates a symlink at `~/.claude/skills/document-summarizer` pointing to this folder -- this is how Claude Code discovers and loads the skill
-2. Installs required Python packages: `pdfplumber`, `PyMuPDF`, `python-docx`, `tiktoken`
-3. Installs required npm packages globally: `docx`, `pdfkit`
-
-If the script reports any errors, see the Troubleshooting section below.
-
-### Step 3: Verify the installation
-
-Open Claude Code:
-```bash
-claude
-```
-
-Then type:
-```
-/document-summarizer
+/document-summarizer:summarize
 ```
 
 If Claude recognizes the command, you're all set.
-
-### How the skill installation works
-
-Claude Code looks for skills in `~/.claude/skills/`. The install script creates a symlink from `~/.claude/skills/document-summarizer` to wherever you downloaded this repository. This means:
-- You can put the repo folder anywhere you like
-- If you cloned with git, running `git pull` gives you updates immediately
-- To uninstall, just delete the symlink: `rm ~/.claude/skills/document-summarizer`
 
 ## Usage
 
@@ -180,11 +175,16 @@ Claude Code looks for skills in `~/.claude/skills/`. The install script creates 
    Summarize everything in /path/to/contracts/
    ```
 
-   Other ways to trigger the skill:
+   Other ways to trigger the plugin:
    ```
    Give me an executive summary of /path/to/document.docx
    What does /path/to/policy.pdf say?
    Analyze the reports in /path/to/quarterly-reports/
+   ```
+
+   You can also invoke it directly:
+   ```
+   /document-summarizer:summarize /path/to/file.pdf
    ```
 
 3. Sit back. For large documents, Claude will coordinate a team of agents that work in parallel. You'll see progress as each agent finishes its assigned sections.
@@ -251,23 +251,18 @@ Add the `export NODE_PATH` line to your `~/.zshrc` or `~/.bashrc` to make it per
 
 ### "No module named 'tiktoken'" or other Python import errors
 
-Run the dependency checker manually:
-```bash
-python3 ~/.claude/skills/document-summarizer/scripts/check_dependencies.py
-```
-
-Or install packages directly:
+Install packages directly:
 ```bash
 pip3 install pdfplumber pymupdf python-docx tiktoken
 ```
 
 ### "pdftotext: command not found"
 
-This is optional. The skill uses PyMuPDF as its primary PDF extractor and only falls back to `pdftotext` when needed. To install it, see the Poppler section under Prerequisites.
+This is optional. The plugin uses PyMuPDF as its primary PDF extractor and only falls back to `pdftotext` when needed. To install it, see the Poppler section under Prerequisites.
 
 ### "Empty extraction" or very short summary
 
-The PDF may be scanned (image-only) rather than text-based. This skill doesn't include OCR. You'll need to run the PDF through an OCR tool first (like Adobe Acrobat's "Recognize Text" feature or the open-source `ocrmypdf` tool).
+The PDF may be scanned (image-only) rather than text-based. This plugin doesn't include OCR. You'll need to run the PDF through an OCR tool first (like Adobe Acrobat's "Recognize Text" feature or the open-source `ocrmypdf` tool).
 
 ### The Word file shows "This document contains fields that may refer to other files"
 
@@ -275,9 +270,12 @@ This is normal. The document includes a Table of Contents field. Click "No" to d
 
 ### Uninstalling
 
-To remove the skill from Claude Code:
+If installed via plugin system:
+```
+/plugin uninstall document-summarizer
+```
+
+If installed via `install.sh`:
 ```bash
 rm ~/.claude/skills/document-summarizer
 ```
-
-This only removes the symlink. Your downloaded repository stays intact.
