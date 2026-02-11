@@ -135,14 +135,16 @@ After producing the final output:
 
 ### Step 6: Produce Final Output
 
-The final deliverables are a `.docx` and a `.pdf` file placed **in the same folder as the original document(s)**.
+The final deliverable is a `.docx` file placed **in the same folder as the original document(s)**.
 
 **Output file naming**:
-- **Single file**: `{original_filename_without_ext}_summary.docx` and `_summary.pdf`
-- **Directory**: `Summary_{dirname}.docx` and `Summary_{dirname}.pdf`
+- **Single file**: `{original_filename_without_ext}_summary.docx`
+- **Directory**: `Summary_{dirname}.docx`
 
-**How to generate the files**:
-Use the `docx` skill (invoke with `/docx`) for the .docx, and `pdfkit` for the .pdf. Both should be generated from a single Node.js script. The docx skill reads `docx-js.md` for the API reference. For PDF, use `pdfkit` with `bufferPages: true` and add page numbers after all content is written.
+**How to generate the file**:
+Use the `docx` skill (invoke with `/docx`) to produce the .docx from a Node.js script. The docx skill reads `docx-js.md` for the API reference.
+
+Also write a plain-text copy to `{WORK_DIR}/final_summary.md` for reference.
 
 **Document structure requirements** (for the .docx):
 - Title page with document name, date, page/token counts
@@ -152,8 +154,6 @@ Use the `docx` skill (invoke with `/docx`) for the .docx, and `pdfkit` for the .
 - Tables for structured data (file listings, effective dates, etc.)
 - Proper bullet lists (using numbering config, not unicode)
 - Page breaks between major sections
-
-Also write a plain-text copy to `{WORK_DIR}/final_summary.md` for reference.
 
 #### Content template for SINGLE FILE mode:
 

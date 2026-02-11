@@ -7,8 +7,8 @@
     {
       "name": "document-summarizer",
       "source": "./document-summarizer",
-      "description": "Summarize large documents (PDF, DOCX, TXT, MD) into professional Word and PDF reports",
-      "version": "1.2.0",
+      "description": "Summarize large documents (PDF, DOCX, TXT, MD) into professional Word reports",
+      "version": "1.3.0",
       "author": {
         "name": "Josue Rodriguez"
       }

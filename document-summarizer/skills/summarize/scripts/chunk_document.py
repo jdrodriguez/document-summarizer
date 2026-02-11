@@ -28,7 +28,9 @@ try:
     ENCODER = tiktoken.get_encoding("cl100k_base")
     def count_tokens(text: str) -> int:
         return len(ENCODER.encode(text))
-except ImportError:
+except Exception:
+    # tiktoken may fail on import OR when downloading its encoding file
+    # (e.g. in sandboxed/offline environments like Cowork's VM)
     ENCODER = None
     def count_tokens(text: str) -> int:
         return len(text) // 4  # ~1 token per 4 chars
