@@ -1,10 +1,11 @@
 {
   "name": "document-summarizer",
   "description": "Summarize large documents (PDF, DOCX, TXT, MD) into professional Word and PDF reports",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
     "name": "Josue Rodriguez"
   },
   "repository": "https://github.com/jdrodriguez/document-summarizer",
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": ["documents", "pdf", "summarize", "docx", "reports"]
 }
