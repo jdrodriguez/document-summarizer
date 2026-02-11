@@ -1,157 +1,84 @@
 # Document Summarizer
 
-A Claude Code plugin that takes large documents (PDF, DOCX, TXT, Markdown) or entire folders of mixed documents and produces a professional summary report in both Word (.docx) and PDF formats. It automatically splits documents into manageable chunks, coordinates multiple AI agents to summarize sections in parallel, and assembles everything into a single unified report with an executive summary, document structure outline, and section-by-section breakdowns.
+A Claude Code plugin that takes large documents (PDF, DOCX, TXT, Markdown) or entire folders of mixed documents and produces a professional summary report as a Word (.docx) file. It automatically splits documents into manageable chunks, coordinates multiple AI agents to summarize sections in parallel, and assembles everything into a single unified report with an executive summary, document structure outline, and section-by-section breakdowns.
+
+Works with both **Claude Code** (CLI) and **Claude Desktop / Cowork**.
 
 ## Prerequisites
 
-You need four things installed on your machine before using this plugin. Follow the instructions for your operating system.
+### Claude Code (CLI)
 
-### macOS users: Install Homebrew first
+You need these installed on your machine:
 
-Most of the tools below can be installed on macOS using Homebrew, a package manager for macOS. If you don't already have it, open **Terminal** (search for "Terminal" in Spotlight) and paste this command:
+1. **Node.js** (v18+) — for generating the final Word document
+2. **Python 3** (v3.9+) — for document text extraction and chunking
+3. **Poppler** (optional) — provides `pdftotext` as a fallback PDF extractor
 
+The plugin will auto-install Python packages (`pdfplumber`, `PyMuPDF`, `python-docx`) and npm packages (`docx`) on first run.
+
+#### macOS (with Homebrew)
+
+```bash
+brew install node python3 poppler
+```
+
+If you don't have Homebrew, install it first:
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-Follow the on-screen instructions. When it finishes, close and reopen Terminal before continuing.
+#### Windows
 
-You can verify Homebrew is installed by running:
-```bash
-brew --version
-```
+- **Node.js**: Download from https://nodejs.org (LTS version). Check "Add to PATH" during install.
+- **Python 3**: Download from https://www.python.org/downloads/. Check "Add Python to PATH" during install.
+- **Poppler** (optional): Download from https://github.com/ossamamehmood/Poppler/releases and add the `bin/` folder to your system PATH.
 
-### 1. Node.js (v18 or newer)
+#### Linux (Ubuntu/Debian)
 
-Node.js runs the script that generates the final Word and PDF files.
-
-**macOS**:
-Download the macOS installer from https://nodejs.org (choose the LTS version). Open the `.pkg` file and follow the prompts.
-
-Alternatively, if you have Homebrew: `brew install node`
-
-**Windows**:
-Download the Windows installer from https://nodejs.org (choose the LTS version). Run it and follow the prompts. Make sure "Add to PATH" is checked during installation.
-
-**Linux (Ubuntu/Debian)**:
 ```bash
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt-get install -y nodejs
+sudo apt-get install -y nodejs python3 python3-pip poppler-utils
 ```
 
-Verify it works by opening a new terminal window and running:
+Verify your setup:
 ```bash
-node --version   # should print v18.x.x or higher
-npm --version    # should print 9.x.x or higher
+node --version     # v18+ required
+python3 --version  # 3.9+ required
 ```
 
-### 2. Python 3 (v3.9 or newer)
+### Claude Desktop / Cowork
 
-Python handles the document text extraction and chunking.
-
-**macOS**:
-Download the macOS installer from https://www.python.org/downloads/. Open the `.pkg` file and follow the prompts.
-
-Alternatively, if you have Homebrew: `brew install python3`
-
-**Windows**:
-Download from https://www.python.org/downloads/. During installation, **check the box that says "Add Python to PATH"** -- this is critical.
-
-**Linux (Ubuntu/Debian)**:
-```bash
-sudo apt-get install -y python3 python3-pip
-```
-
-Verify it works:
-```bash
-python3 --version   # should print 3.9.x or higher
-```
-
-### 3. Poppler (for PDF text extraction)
-
-Poppler provides the `pdftotext` command used as a fallback for extracting text from PDFs. This is optional but recommended for best results with PDFs.
-
-**macOS** (with Homebrew): `brew install poppler`
-
-The plugin will still work without Poppler -- it uses PyMuPDF as the primary PDF extractor and only falls back to `pdftotext` when needed.
-
-**Windows**:
-Download from https://github.com/ossamamehmood/Poppler/releases. Extract the zip file, then add the `bin/` folder inside it to your system PATH.
-
-**Linux (Ubuntu/Debian)**:
-```bash
-sudo apt-get install -y poppler-utils
-```
-
-### 4. Claude Code
-
-Claude Code is the AI-powered command-line tool that runs this plugin. Once you have Node.js installed, open a terminal and run:
-
-```bash
-npm install -g @anthropic-ai/claude-code
-```
-
-To use Claude Code you need one of the following:
-- An **Anthropic API key** -- get one at https://console.anthropic.com, then set it:
-  ```bash
-  export ANTHROPIC_API_KEY=your-key-here
-  ```
-- A **Claude Max subscription** -- $100/month plan from Anthropic that includes Claude Code usage
-
-Launch Claude Code for the first time to complete setup:
-```bash
-claude
-```
-
-It will walk you through authentication on first run.
+No prerequisites needed. Cowork's VM has Python and Node.js pre-installed. All dependencies are auto-installed on first run.
 
 ## Installing the Plugin
 
-### Option A: Plugin install (recommended)
+### Option A: Claude Code CLI
 
-If this plugin is available through a Claude Code marketplace, install it directly from within Claude Code:
+Install directly from within Claude Code:
 
 ```
-/plugin install document-summarizer
+/install-plugin https://github.com/jdrodriguez/document-summarizer
 ```
 
-This is the easiest method and handles everything automatically.
+Or clone and use locally:
 
-### Option B: Install from GitHub
+```bash
+git clone https://github.com/jdrodriguez/document-summarizer.git
+claude --plugin-dir /path/to/document-summarizer/document-summarizer
+```
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/jdrodriguez/document-summarizer.git
-   ```
+### Option B: Claude Desktop / Cowork
 
-2. Install dependencies:
-   ```bash
-   cd document-summarizer
-   chmod +x install.sh
-   ./install.sh
-   ```
+1. Download [`document-summarizer.zip`](document-summarizer.zip) from this repository
+2. Open Claude Desktop and start a Cowork session
+3. Drag and drop the `.zip` file into the chat
+4. Claude will install the plugin automatically
 
-   This installs the required Python packages (`pdfplumber`, `PyMuPDF`, `python-docx`, `tiktoken`) and npm packages (`docx`, `pdfkit`).
-
-3. Test the plugin locally by launching Claude Code with the plugin directory:
-   ```bash
-   claude --plugin-dir /path/to/document-summarizer
-   ```
-
-### Option C: Download the ZIP
-
-1. Go to https://github.com/jdrodriguez/document-summarizer
-2. Click the green "Code" button, then "Download ZIP"
-3. Unzip the downloaded file
-4. Open a terminal, `cd` into the unzipped folder, and run:
-   ```bash
-   chmod +x install.sh
-   ./install.sh
-   ```
+> **Note**: The standard marketplace install may not work in Cowork due to a known filesystem issue. The zip upload method is the reliable workaround.
 
 ### Verify the installation
 
-Open Claude Code and type:
+Type this in Claude Code or Cowork:
 ```
 /document-summarizer:summarize
 ```
@@ -160,34 +87,33 @@ If Claude recognizes the command, you're all set.
 
 ## Usage
 
-1. Open a terminal and launch Claude Code:
-   ```bash
-   claude
-   ```
+Ask Claude to summarize a document by providing the file path:
 
-2. Ask it to summarize a document by providing the file path:
-   ```
-   Summarize /path/to/my-report.pdf
-   ```
+```
+Summarize /path/to/my-report.pdf
+```
 
-   Or point it at a folder of documents:
-   ```
-   Summarize everything in /path/to/contracts/
-   ```
+Or point it at a folder of documents:
 
-   Other ways to trigger the plugin:
-   ```
-   Give me an executive summary of /path/to/document.docx
-   What does /path/to/policy.pdf say?
-   Analyze the reports in /path/to/quarterly-reports/
-   ```
+```
+Summarize everything in /path/to/contracts/
+```
 
-   You can also invoke it directly:
-   ```
-   /document-summarizer:summarize /path/to/file.pdf
-   ```
+Other ways to trigger the plugin:
 
-3. Sit back. For large documents, Claude will coordinate a team of agents that work in parallel. You'll see progress as each agent finishes its assigned sections.
+```
+Give me an executive summary of /path/to/document.docx
+What does /path/to/policy.pdf say?
+Analyze the reports in /path/to/quarterly-reports/
+```
+
+You can also invoke it directly:
+
+```
+/document-summarizer:summarize /path/to/file.pdf
+```
+
+For large documents, Claude coordinates a team of agents that work in parallel. You'll see progress as each agent finishes its assigned sections.
 
 ## What You Get
 
@@ -196,16 +122,17 @@ After processing, you'll find these files **in the same folder as your original 
 | File | Description |
 |------|-------------|
 | `{filename}_summary.docx` | Professional Word document with executive summary, TOC, section breakdowns, key findings |
-| `{filename}_summary.pdf` | Same content as a PDF |
-| `{filename}_summary_work/` | Working directory with intermediate files (see below) |
+| `{filename}_summary_work/` | Working directory with intermediate files (chunks, agent summaries, metadata) |
 
 The `_summary_work/` folder contains:
-- `metadata.json` -- document structure, chunk info, and token counts
-- `chunks/` -- the individual text chunks extracted from your document (useful for reviewing what the AI saw)
-- `summaries/` -- each agent's raw summary output before final assembly
-- `final_summary.md` -- plain-text version of the final summary
+- `metadata.json` — document structure, chunk info, and token counts
+- `chunks/` — the individual text chunks extracted from your document
+- `summaries/` — each agent's raw summary output before final assembly
+- `final_summary.md` — plain-text Markdown version of the summary
 
-For directory input, the output files are named `Summary_{foldername}.docx` and `.pdf`, and the work directory is `_summary_work/` inside the source folder.
+For directory input, the output is named `Summary_{foldername}.docx` and the work directory is `_summary_work/` inside the source folder.
+
+> **Need a PDF?** Open the `.docx` in Word or Google Docs and export to PDF.
 
 ## Supported File Types
 
@@ -220,7 +147,7 @@ For directory input, the output files are named `Summary_{foldername}.docx` and 
 
 ### "command not found: node" or "command not found: python3"
 
-Your PATH isn't set up correctly. Try closing and reopening your terminal. If that doesn't help:
+Your PATH isn't set up correctly. Close and reopen your terminal. If that doesn't help:
 
 **macOS/Linux**: Add this to your `~/.zshrc` or `~/.bashrc`:
 ```bash
@@ -230,43 +157,33 @@ Then run `source ~/.zshrc` (or `~/.bashrc`).
 
 **Windows**: Reinstall Node.js/Python and make sure to check "Add to PATH" during installation.
 
-### "Cannot find module 'docx'" or "Cannot find module 'pdfkit'"
+### "Cannot find module 'docx'"
 
-The npm packages aren't installed globally. Run:
+The npm package isn't installed. The plugin auto-installs it, but you can also run manually:
 ```bash
-npm install -g docx pdfkit
+npm install -g docx
 ```
 
-If you still get the error, your Node.js global modules path may not be in NODE_PATH. Find it with:
-```bash
-npm root -g
-```
-Then set NODE_PATH before running Claude Code:
+If the error persists, your Node.js global modules path may not be in NODE_PATH:
 ```bash
 export NODE_PATH=$(npm root -g)
-claude
 ```
+Add that line to your `~/.zshrc` or `~/.bashrc` to make it permanent.
 
-Add the `export NODE_PATH` line to your `~/.zshrc` or `~/.bashrc` to make it permanent.
+### Python import errors
 
-### "No module named 'tiktoken'" or other Python import errors
-
-Install packages directly:
+The plugin auto-installs Python dependencies. To install manually:
 ```bash
-pip3 install pdfplumber pymupdf python-docx tiktoken
+pip3 install pdfplumber pymupdf python-docx
 ```
-
-### "pdftotext: command not found"
-
-This is optional. The plugin uses PyMuPDF as its primary PDF extractor and only falls back to `pdftotext` when needed. To install it, see the Poppler section under Prerequisites.
 
 ### "Empty extraction" or very short summary
 
-The PDF may be scanned (image-only) rather than text-based. This plugin doesn't include OCR. You'll need to run the PDF through an OCR tool first (like Adobe Acrobat's "Recognize Text" feature or the open-source `ocrmypdf` tool).
+The PDF may be scanned (image-only) rather than text-based. This plugin doesn't include OCR. Run the PDF through an OCR tool first (like Adobe Acrobat's "Recognize Text" or the open-source `ocrmypdf` tool).
 
 ### The Word file shows "This document contains fields that may refer to other files"
 
-This is normal. The document includes a Table of Contents field. Click "No" to dismiss the dialog -- the TOC will display correctly once you update the fields in Word (right-click the TOC and select "Update Field").
+This is normal. The document includes a Table of Contents field. Click "No" to dismiss the dialog. The TOC displays correctly once you update the fields in Word (right-click the TOC and select "Update Field").
 
 ### Uninstalling
 
@@ -275,7 +192,7 @@ If installed via plugin system:
 /plugin uninstall document-summarizer
 ```
 
-If installed via `install.sh`:
+If installed manually:
 ```bash
-rm ~/.claude/skills/document-summarizer
+rm -rf ~/.claude/skills/document-summarizer
 ```
