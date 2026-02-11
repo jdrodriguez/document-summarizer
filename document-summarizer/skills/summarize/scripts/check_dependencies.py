@@ -7,17 +7,17 @@ import sys
 
 PYTHON_DEPS = {
     "pdfplumber": "pdfplumber",
-    "fitz": "PyMuPDF",
     "docx": "python-docx",
 }
 
 # npm packages needed for output generation (.docx)
 NPM_DEPS = ["docx"]
 
-# tiktoken is optional — requires a network download that may be blocked
-# in sandboxed environments like Cowork. The chunker falls back to
-# char-based estimation (~1 token per 4 chars) when unavailable.
+# Optional deps — the chunker handles all of these being missing:
+# - PyMuPDF: faster PDF extraction, falls back to pdfplumber
+# - tiktoken: accurate token counting, falls back to len(text)//4
 OPTIONAL_DEPS = {
+    "fitz": "PyMuPDF",
     "tiktoken": "tiktoken",
 }
 
@@ -100,7 +100,7 @@ def main():
         sys.exit(2)
 
     if not shutil.which("node"):
-        print("WARNING: Node.js not found. Output generation (.docx/.pdf) will not work.")
+        print("WARNING: Node.js not found. Output generation (.docx) will not work.")
         print("Install from https://nodejs.org/")
 
     # System deps (optional)
