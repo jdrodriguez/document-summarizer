@@ -8,7 +8,7 @@
       "name": "legal-toolkit",
       "source": "./legal-toolkit",
       "description": "Complete legal productivity suite with 31 tools: document summarization, audio transcription, OCR, court deadlines, billing audits, e-discovery, financial forensics, contract redlines, case chronologies, deposition indexing, entity mapping, communication analysis, evidence photos, public records research, document comparison, client intake processing, forensic video analysis, criminal discovery analysis, motion drafting, content marketing multiplication, intake call scoring, adaptive intake scripts, objection playbooks, case strategy playbooks, case pricing, client review requests, client journey mapping, communication cadence design, performance data surfacing, attorney workload analysis, and firm decision modeling.",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "author": {
         "name": "Josue Rodriguez"
       }
