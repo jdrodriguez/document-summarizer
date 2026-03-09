@@ -5,19 +5,10 @@
   },
   "plugins": [
     {
-      "name": "document-summarizer",
-      "source": "./document-summarizer",
-      "description": "Summarize large documents (PDF, DOCX, TXT, MD) into professional Word reports",
-      "version": "1.3.0",
-      "author": {
-        "name": "Josue Rodriguez"
-      }
-    },
-    {
-      "name": "legal-transcriber",
-      "source": "./legal-transcriber",
-      "description": "Transcribe audio/video recordings with speaker diarization into professional transcript documents",
-      "version": "2.0.0",
+      "name": "legal-toolkit",
+      "source": "./legal-toolkit",
+      "description": "Complete legal productivity suite with 16 tools: document summarization, audio transcription, OCR, court deadlines, billing audits, e-discovery, financial forensics, contract redlines, case chronologies, deposition indexing, entity mapping, communication analysis, evidence photos, public records research, document comparison, and client intake processing.",
+      "version": "1.0.0",
       "author": {
         "name": "Josue Rodriguez"
       }

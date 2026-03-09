@@ -1,0 +1,27 @@
+{
+  "name": "legal-toolkit",
+  "version": "1.0.0",
+  "description": "Complete legal productivity suite: document summarization, audio transcription, OCR, court deadlines, billing audits, e-discovery, financial forensics, contract redlines, case chronologies, deposition indexing, entity mapping, communication analysis, evidence photos, public records research, and client intake processing.",
+  "author": {
+    "name": "Josue Rodriguez"
+  },
+  "repository": "https://github.com/jdrodriguez/legal-toolkit",
+  "license": "MIT",
+  "keywords": [
+    "legal",
+    "law",
+    "litigation",
+    "transcription",
+    "ocr",
+    "ediscovery",
+    "contracts",
+    "billing",
+    "forensics",
+    "deadlines",
+    "chronology",
+    "deposition",
+    "entities",
+    "intake",
+    "document-summarizer"
+  ]
+}
