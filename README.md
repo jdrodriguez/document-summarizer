@@ -57,13 +57,13 @@ No prerequisites needed. Cowork's VM has Python and Node.js pre-installed. All d
 Install directly from within Claude Code:
 
 ```
-/install-plugin https://github.com/jdrodriguez/document-summarizer
+/install-plugin https://github.com/jdrodriguez/legal-toolkit
 ```
 
 Or clone and use locally:
 
 ```bash
-git clone https://github.com/jdrodriguez/document-summarizer.git
+git clone https://github.com/jdrodriguez/legal-toolkit.git
 claude --plugin-dir /path/to/document-summarizer/document-summarizer
 ```
 
