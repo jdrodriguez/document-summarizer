@@ -263,11 +263,13 @@ def try_diarize(wav_path: str, max_speakers: int = 4) -> dict | None:
             pipeline.to(torch.device("cuda"))
 
         log_progress("diarizing", 30, "Running speaker diarization...")
-        diarization = pipeline(wav_path, max_speakers=max_speakers)
+        result = pipeline(wav_path, max_speakers=max_speakers)
+        # pyannote v4.x returns DiarizeOutput; v3.x returns Annotation directly
+        annotation = getattr(result, "speaker_diarization", result)
 
         # Build speaker map: list of (start, end, speaker)
         speaker_turns = []
-        for turn, _, speaker in diarization.itertracks(yield_label=True):
+        for turn, _, speaker in annotation.itertracks(yield_label=True):
             speaker_turns.append({
                 "start": turn.start,
                 "end": turn.end,

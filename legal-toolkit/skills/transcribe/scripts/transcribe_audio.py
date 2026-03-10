@@ -186,9 +186,11 @@ def run_diarization(audio_path: str, hf_token: str, max_speakers: int = None,
     t0 = time.time()
     pipe = PyannotePipeline.from_pretrained("pyannote/speaker-diarization-3.1", token=hf_token)
     kw = {"max_speakers": max_speakers} if max_speakers and max_speakers > 0 else {}
-    diarization = pipe(audio_path, **kw)
+    result = pipe(audio_path, **kw)
+    # pyannote v4.x returns DiarizeOutput; v3.x returns Annotation directly
+    annotation = getattr(result, "speaker_diarization", result)
     turns = [{"start": round(t.start, 2), "end": round(t.end, 2), "speaker": s}
-             for t, _, s in diarization.itertracks(yield_label=True)]
+             for t, _, s in annotation.itertracks(yield_label=True)]
     spk = {t["speaker"] for t in turns}
     _log(f"Diarization done: {len(spk)} speakers, {len(turns)} turns in {time.time()-t0:.1f}s")
     return turns
