@@ -217,6 +217,19 @@ Summary of major transitions:
 3. **Re-extract with different settings**: If the user wants more detail in a specific time range, re-run extraction with higher `--dense-fps` or adjusted `--scene-threshold`.
 4. **Compare with other evidence**: Offer to cross-reference timestamps with other evidence (photos via `analyze-photos`, communications via `analyze-communications`).
 
+
+## Accuracy and QA (Required)
+
+Read the full QA protocol at `$SKILL_DIR/../../QA_AND_ACCURACY.md` and follow it.
+
+**Anti-hallucination rules** (include in ALL subagent prompts):
+- Every factual claim must cite a source document — unsourced claims are prohibited
+- Never fabricate legal citations — all case law → `[VERIFY]`, unknown authority → `[CASE LAW RESEARCH NEEDED]`
+- Never assume facts not in source material — missing info → `[NEEDS INVESTIGATION]`
+- Quote exactly when comparing documents — label analysis vs. facts distinctly
+
+**QA review**: After completing all work but BEFORE presenting to the user, launch a QA agent (`subagent_type: "general-purpose"`) following the protocol in the file above. The QA agent reads all outputs and source materials, checks for hallucination and accuracy, and writes `qa_review.md`. Apply any fixes before presenting to the user.
+
 ## Important Analysis Instructions
 
 - **Be objective and factual.** Describe only what is visible in each frame. Do not speculate about intent, motive, or events not depicted.

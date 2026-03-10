@@ -156,3 +156,16 @@ List any issues with the data that limit the analysis:
 If a `~~chat` connector (e.g. Slack) is available, offer to share the performance report:
 > "Want me to post the KPI summary to a Slack channel for firm leadership?"
 If yes, post the Executive Summary and top 3 anomaly flags as a formatted Slack message.
+
+## Accuracy and QA (Required)
+
+Read the full QA protocol at `$SKILL_DIR/../../QA_AND_ACCURACY.md` and follow it.
+
+**Anti-hallucination rules** (include in ALL subagent prompts):
+- Every factual claim must cite a source document — unsourced claims are prohibited
+- Never fabricate legal citations — all case law → `[VERIFY]`, unknown authority → `[CASE LAW RESEARCH NEEDED]`
+- Never assume facts not in source material — missing info → `[NEEDS INVESTIGATION]`
+- Quote exactly when comparing documents — label analysis vs. facts distinctly
+
+**QA review**: After completing all work but BEFORE presenting to the user, launch a QA agent (`subagent_type: "general-purpose"`) following the protocol in the file above. The QA agent reads all outputs and source materials, checks for hallucination and accuracy, and writes `qa_review.md`. Apply any fixes before presenting to the user.
+

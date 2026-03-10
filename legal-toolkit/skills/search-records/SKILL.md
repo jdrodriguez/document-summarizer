@@ -74,6 +74,19 @@ The script outputs JSON to stdout with the research results.
 - **Deep dive**: If user wants details on a specific filing, offer to retrieve and analyze it
 - **Refine search**: If user wants different filing types or time period, loop back to Step 3
 
+
+## Accuracy and QA (Required)
+
+Read the full QA protocol at `$SKILL_DIR/../../QA_AND_ACCURACY.md` and follow it.
+
+**Anti-hallucination rules** (include in ALL subagent prompts):
+- Every factual claim must cite a source document — unsourced claims are prohibited
+- Never fabricate legal citations — all case law → `[VERIFY]`, unknown authority → `[CASE LAW RESEARCH NEEDED]`
+- Never assume facts not in source material — missing info → `[NEEDS INVESTIGATION]`
+- Quote exactly when comparing documents — label analysis vs. facts distinctly
+
+**QA review**: After completing all work but BEFORE presenting to the user, launch a QA agent (`subagent_type: "general-purpose"`) following the protocol in the file above. The QA agent reads all outputs and source materials, checks for hallucination and accuracy, and writes `qa_review.md`. Apply any fixes before presenting to the user.
+
 ## Error Handling
 
 - **Company not found**: Suggest checking the spelling or using the CIK number directly

@@ -101,6 +101,19 @@ If firm-specific pricing is not configured, produce ranges based on the charge c
 - Quoted scripts for fee justification language (written as spoken words)
 - Bold flags and alerts so they stand out
 
+
+## Accuracy and QA (Required)
+
+Read the full QA protocol at `$SKILL_DIR/../../QA_AND_ACCURACY.md` and follow it.
+
+**Anti-hallucination rules** (include in ALL subagent prompts):
+- Every factual claim must cite a source document — unsourced claims are prohibited
+- Never fabricate legal citations — all case law → `[VERIFY]`, unknown authority → `[CASE LAW RESEARCH NEEDED]`
+- Never assume facts not in source material — missing info → `[NEEDS INVESTIGATION]`
+- Quote exactly when comparing documents — label analysis vs. facts distinctly
+
+**QA review**: After completing all work but BEFORE presenting to the user, launch a QA agent (`subagent_type: "general-purpose"`) following the protocol in the file above. The QA agent reads all outputs and source materials, checks for hallucination and accuracy, and writes `qa_review.md`. Apply any fixes before presenting to the user.
+
 ## Quality Standards
 
 - **Never quote a final price.** Always "recommended range pending attorney review"

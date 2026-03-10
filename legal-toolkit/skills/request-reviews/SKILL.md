@@ -122,6 +122,19 @@ A checklist the firm can reference to ensure every review request is ethical:
 - Target length: 5-8 pages
 - Tone throughout: warm, grateful, professional. This is a relationship document, not a marketing playbook.
 
+
+## Accuracy and QA (Required)
+
+Read the full QA protocol at `$SKILL_DIR/../../QA_AND_ACCURACY.md` and follow it.
+
+**Anti-hallucination rules** (include in ALL subagent prompts):
+- Every factual claim must cite a source document — unsourced claims are prohibited
+- Never fabricate legal citations — all case law → `[VERIFY]`, unknown authority → `[CASE LAW RESEARCH NEEDED]`
+- Never assume facts not in source material — missing info → `[NEEDS INVESTIGATION]`
+- Quote exactly when comparing documents — label analysis vs. facts distinctly
+
+**QA review**: After completing all work but BEFORE presenting to the user, launch a QA agent (`subagent_type: "general-purpose"`) following the protocol in the file above. The QA agent reads all outputs and source materials, checks for hallucination and accuracy, and writes `qa_review.md`. Apply any fixes before presenting to the user.
+
 ## Quality Standards
 
 - Never suggest language that asks the client to say something specific in their review. The request is for a review, not for a specific message.

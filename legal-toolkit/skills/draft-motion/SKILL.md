@@ -149,6 +149,19 @@ Present the complete draft to the attorney. After the draft, include:
 
 Ask: "Want me to revise any sections, strengthen specific arguments, adjust the tone, or reorder the arguments?"
 
+
+## Accuracy and QA (Required)
+
+Read the full QA protocol at `$SKILL_DIR/../../QA_AND_ACCURACY.md` and follow it.
+
+**Anti-hallucination rules** (include in ALL subagent prompts):
+- Every factual claim must cite a source document — unsourced claims are prohibited
+- Never fabricate legal citations — all case law → `[VERIFY]`, unknown authority → `[CASE LAW RESEARCH NEEDED]`
+- Never assume facts not in source material — missing info → `[NEEDS INVESTIGATION]`
+- Quote exactly when comparing documents — label analysis vs. facts distinctly
+
+**QA review**: After completing all work but BEFORE presenting to the user, launch a QA agent (`subagent_type: "general-purpose"`) following the protocol in the file above. The QA agent reads all outputs and source materials, checks for hallucination and accuracy, and writes `qa_review.md`. Apply any fixes before presenting to the user.
+
 ## Quality Standards
 
 - **No placeholders in the output.** Every [CLIENT NAME], [CASE NUMBER], [COURT], [JUDGE] field must be filled from the case file. If a value cannot be found, use [FILL -- not found in case file] so the attorney knows to add it.

@@ -100,3 +100,16 @@ For the recommended option, provide:
 - **Consider second-order effects.** A hiring decision affects culture, management load, and office space — not just capacity. A pricing increase affects close rate, client profile, and competitive positioning — not just revenue per case. Surface these downstream effects.
 - **Stay in your lane.** If the decision involves legal ethics, regulatory compliance, malpractice exposure, or anything requiring a licensed attorney's judgment, flag it and recommend the owner consult appropriate counsel. Do not opine on legal questions.
 - **Format for a decision-maker.** Problem statement and recommendation up front. Supporting analysis below. The owner should know your recommendation in 30 seconds and be able to interrogate the reasoning at their own pace.
+
+## Accuracy and QA (Required)
+
+Read the full QA protocol at `$SKILL_DIR/../../QA_AND_ACCURACY.md` and follow it.
+
+**Anti-hallucination rules** (include in ALL subagent prompts):
+- Every factual claim must cite a source document — unsourced claims are prohibited
+- Never fabricate legal citations — all case law → `[VERIFY]`, unknown authority → `[CASE LAW RESEARCH NEEDED]`
+- Never assume facts not in source material — missing info → `[NEEDS INVESTIGATION]`
+- Quote exactly when comparing documents — label analysis vs. facts distinctly
+
+**QA review**: After completing all work but BEFORE presenting to the user, launch a QA agent (`subagent_type: "general-purpose"`) following the protocol in the file above. The QA agent reads all outputs and source materials, checks for hallucination and accuracy, and writes `qa_review.md`. Apply any fixes before presenting to the user.
+

@@ -164,3 +164,16 @@ If historical data is not available, note this and recommend the firm start trac
 - **Do not evaluate attorney quality.** This is a capacity analysis, not a performance review. Avoid language that implies an attorney is slow or underperforming -- the data shows workload distribution, not competence.
 - **Format for decision-making.** Use tables, clear status indicators, and a prioritized action list. The managing attorney should be able to scan this in 5 minutes and know what needs attention today.
 - **Practice-area agnostic.** This tool works for any type of law firm. If the case types provided do not match the default weight table, approximate weights based on complexity relative to a baseline case, and note the approximation.
+
+## Accuracy and QA (Required)
+
+Read the full QA protocol at `$SKILL_DIR/../../QA_AND_ACCURACY.md` and follow it.
+
+**Anti-hallucination rules** (include in ALL subagent prompts):
+- Every factual claim must cite a source document — unsourced claims are prohibited
+- Never fabricate legal citations — all case law → `[VERIFY]`, unknown authority → `[CASE LAW RESEARCH NEEDED]`
+- Never assume facts not in source material — missing info → `[NEEDS INVESTIGATION]`
+- Quote exactly when comparing documents — label analysis vs. facts distinctly
+
+**QA review**: After completing all work but BEFORE presenting to the user, launch a QA agent (`subagent_type: "general-purpose"`) following the protocol in the file above. The QA agent reads all outputs and source materials, checks for hallucination and accuracy, and writes `qa_review.md`. Apply any fixes before presenting to the user.
+
