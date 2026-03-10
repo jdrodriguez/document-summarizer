@@ -22,12 +22,9 @@ Exit codes: 0 = success, 1 = partial success, 2 = failure.
 
 import argparse
 import json
-import math
 import os
 import re
 import sys
-import tempfile
-import time
 from collections import defaultdict
 from datetime import timedelta
 from pathlib import Path
@@ -293,7 +290,6 @@ def assign_speakers(segments: list[dict], speaker_turns: list[dict] | None) -> l
         return segments
 
     for seg in segments:
-        seg_mid = (seg["start"] + seg["end"]) / 2
         best_speaker = None
         best_overlap = 0
 
@@ -928,11 +924,6 @@ def main():
         "diarization_used": speaker_turns is not None,
         "topics": len(topics),
         "key_moments": len(key_moments),
-        "key_moments_by_type": dict(
-            sorted(
-                defaultdict(int, {m["type"]: 0 for m in key_moments}).items()
-            )
-        ),
         "output_dir": str(output_dir),
         "files": {
             "transcript": transcript_path,

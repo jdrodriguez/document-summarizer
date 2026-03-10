@@ -20,7 +20,7 @@ Before multiplying, determine what the user provided and extract text accordingl
 
 ### Audio or Video File (.mp3, .wav, .m4a, .mp4, .mov, .avi, .mkv, .webm, .flac, .ogg, .wma, .aac)
 
-Chain to `/legal-toolkit:transcribe` first:
+Chain to `/legal-toolkit:transcription` first:
 
 > "This is an audio/video file. I'll transcribe it first, then multiply the content."
 

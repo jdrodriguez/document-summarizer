@@ -125,7 +125,7 @@ For directories with **10+ documents**, use parallel agents to speed up processi
 
 Ask the user: "Would you like me to generate a formal chronology narrative as a Word document (.docx)?"
 
-If yes, use the `docx` skill (invoke with `/docx`) to produce a professional document containing:
+If yes, use the npm `docx` package to generate a professional Word document containing:
 1. Title: "Case Chronology: [case name or directory name]"
 2. Date range and document summary
 3. Chronological narrative with citations to source documents

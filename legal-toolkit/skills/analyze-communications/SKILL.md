@@ -94,7 +94,7 @@ If the user provided key dates, present a before/after comparison:
 
 Ask: "Would you like me to generate a formal communication analysis report as a Word document (.docx)?"
 
-If yes, use the `docx` skill (invoke with `/docx`) to produce a professional report containing:
+If yes, use the npm `docx` package to generate a professional report containing:
 1. **Title page**: "Communication Pattern Analysis Report", date, case information
 2. **Executive Summary**: Key findings and notable patterns
 3. **Methodology**: Analysis techniques and data sources

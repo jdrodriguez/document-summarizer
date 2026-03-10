@@ -53,7 +53,7 @@ If the user provided file paths, extract text before drafting.
    ```
 2. If the PDF appears scanned (exit code 1 with SCANNED_PDF), chain to the OCR skill:
    > "This PDF appears to be scanned. Running OCR to extract text first."
-   Use `/legal-toolkit:ocr` on the file, then use the OCR output text for drafting.
+   Use `/legal-toolkit:extract-text` on the file, then use the OCR output text for drafting.
 
 **DOCX files:**
 ```bash
@@ -150,4 +150,4 @@ Adapt the output structure for each motion type. A motion to compel looks differ
 - **Multiple motion types from one case:** Draft each motion separately. Cross-reference where arguments overlap -- if the motion to suppress and the motion in limine both rely on the same issue, note the connection.
 - **Jurisdiction differs from template:** Adapt statutory citations and procedural references to the correct jurisdiction. Note: "Template appears to be from [State A]. Case is in [State B]. Statutory citations have been adapted. Attorney should verify procedural requirements for [State B]."
 - **Template has tracked changes or formatting artifacts:** Work from the substance, not the formatting. Note any sections where the template's intent was unclear due to markup.
-- **Scanned PDF case documents:** Chain to `/legal-toolkit:ocr` for text extraction before drafting. Inform the user: "Case document appears to be scanned. Running OCR first."
+- **Scanned PDF case documents:** Chain to `/legal-toolkit:extract-text` for text extraction before drafting. Inform the user: "Case document appears to be scanned. Running OCR first."

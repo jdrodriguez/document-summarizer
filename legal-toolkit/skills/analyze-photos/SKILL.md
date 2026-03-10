@@ -67,7 +67,7 @@ The script outputs JSON to stdout with the analysis results.
 ### Step 5: Offer Additional Actions
 
 - **View map**: Point user to `$WORK_DIR/evidence_map.html` to open in browser
-- **DOCX report**: Offer to create a formal evidence report (.docx) using the metadata via `/docx` skill
+- **DOCX report**: Offer to create a formal evidence report (.docx) using the npm `docx` package
 - **Specific photo details**: If user asks about a specific photo, look it up in `metadata_report.json`
 - **Tampering review**: If tampering flags were found, provide detailed analysis
 

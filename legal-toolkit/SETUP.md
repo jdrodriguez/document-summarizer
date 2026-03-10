@@ -4,9 +4,9 @@
 
 Most skills work out of the box after installation. A few require additional setup for full functionality.
 
-## Speaker Diarization (Transcribe Skill)
+## Speaker Diarization (Transcribe & Index Deposition Skills)
 
-The `/legal-toolkit:transcribe` skill can identify individual speakers in recordings (e.g., "SPEAKER_00", "SPEAKER_01"). This requires a free HuggingFace account and token.
+The `/legal-toolkit:transcribe` and `/legal-toolkit:index-deposition` skills can identify individual speakers in recordings (e.g., "SPEAKER_00", "SPEAKER_01"). This requires a free HuggingFace account and token.
 
 > **Important: Local only.** Speaker diarization requires pyannote.audio + PyTorch (~1.5 GB of dependencies) and significant CPU/memory. This only works when running **Claude Code locally** on your machine. It will **not work in Claude Desktop / Cowork** — the Cowork VM does not have the resources or persistent storage to support PyTorch. In Cowork, transcription still works perfectly, you just won't get speaker labels.
 
@@ -92,5 +92,7 @@ All other skills in the Legal Toolkit work without additional setup. Dependencie
 |-------|-------------------|-----------------|
 | Transcribe (basic) | None | Yes |
 | Transcribe (with speakers) | HuggingFace token + pyannote (see above) | No (local Claude Code only) |
+| Index Deposition (basic) | None | Yes |
+| Index Deposition (with speakers) | HuggingFace token + pyannote (see above) | No (local Claude Code only) |
 | OCR | None (PaddleOCR auto-installs) | Yes |
 | All other skills | None | Yes |

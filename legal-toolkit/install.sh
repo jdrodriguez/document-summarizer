@@ -54,8 +54,7 @@ for skill_dir in "$SKILLS_DIR"/*/; do
 
     if [ -f "$dep_script" ]; then
         echo "--- $skill_name ---"
-        python3 "$dep_script"
-        status=$?
+        python3 "$dep_script" && status=0 || status=$?
         if [ $status -eq 2 ]; then
             echo "  WARNING: Some dependencies for $skill_name could not be installed."
             failed=1

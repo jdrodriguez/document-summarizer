@@ -672,7 +672,13 @@ def main():
 
     # --- Load spaCy ---
     log_progress("loading_model", "Loading spaCy NLP model...")
-    import spacy
+    try:
+        import spacy
+    except ImportError:
+        log("ERROR: spaCy is not installed. Run: pip install spacy")
+        result = {"status": "error", "error": "spaCy is not installed. Run: pip install spacy"}
+        print(json.dumps(result))
+        sys.exit(2)
     try:
         nlp = spacy.load("en_core_web_sm")
     except OSError:

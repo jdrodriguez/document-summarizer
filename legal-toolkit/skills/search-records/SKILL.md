@@ -70,7 +70,7 @@ The script outputs JSON to stdout with the research results.
 ### Step 5: Offer Additional Actions
 
 - **View financial charts**: Point user to `$WORK_DIR/financial_trends.html` to open in browser
-- **DOCX report**: Offer to generate a formal research report (.docx) via `/docx` skill
+- **DOCX report**: Offer to generate a formal research report (.docx) using the npm `docx` package
 - **Deep dive**: If user wants details on a specific filing, offer to retrieve and analyze it
 - **Refine search**: If user wants different filing types or time period, loop back to Step 3
 

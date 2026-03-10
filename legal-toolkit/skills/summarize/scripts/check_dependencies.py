@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Check and auto-install dependencies for the document-summarizer skill."""
-import importlib
+import importlib.util
 import subprocess
 import shutil
 import sys
@@ -22,12 +22,15 @@ OPTIONAL_DEPS = {
 }
 
 
+def is_package_available(module_name: str) -> bool:
+    """Check if a package is importable WITHOUT actually importing it."""
+    return importlib.util.find_spec(module_name) is not None
+
+
 def check_python_deps():
     missing = []
     for module, package in PYTHON_DEPS.items():
-        try:
-            importlib.import_module(module)
-        except ImportError:
+        if not is_package_available(module):
             missing.append(package)
     return missing
 
@@ -148,9 +151,7 @@ def main():
     # Optional Python deps (best-effort)
     missing_optional = []
     for module, package in OPTIONAL_DEPS.items():
-        try:
-            importlib.import_module(module)
-        except ImportError:
+        if not is_package_available(module):
             missing_optional.append(package)
     if missing_optional:
         try:

@@ -88,7 +88,7 @@ The script outputs JSON to stdout with the calculation results.
 ### Step 6: Offer Additional Actions
 
 - **Calendar import**: Point user to `$WORK_DIR/deadlines.ics` for calendar import
-- **DOCX report**: Offer to generate a formal .docx deadline report via `/docx` skill
+- **DOCX report**: Offer to generate a formal .docx deadline report using the npm `docx` package
 - **Recalculate**: If user wants to adjust dates or add custom deadlines, loop back to Step 3
 
 ## Error Handling

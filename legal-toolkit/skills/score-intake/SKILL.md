@@ -16,7 +16,7 @@ Criminal defense firms spend $200-$500 per lead through marketing. When a prospe
 
 ## Skill Directory
 
-Scripts are in the `scripts/` subdirectory of this skill's directory.
+This skill has no Python scripts. All processing is done by Claude directly.
 Resolve `SKILL_DIR` as the absolute path of this SKILL.md file's parent directory.
 
 ## Connector Check: ~~call transcription
@@ -38,7 +38,7 @@ Tell the user:
 
 > "I'll transcribe this recording first, then score the intake call."
 
-Invoke `/legal-toolkit:transcribe` on the file. Once transcription completes, read the resulting `transcript.txt` from the work directory (`{parent_dir}/{filename_without_ext}_transcript_work/transcript.txt`). Use that text as the call transcript and proceed to Step 2.
+Invoke `/legal-toolkit:transcription` on the file. Once transcription completes, read the resulting `transcript.txt` from the work directory (`{parent_dir}/{filename_without_ext}_transcript_work/transcript.txt`). Use that text as the call transcript and proceed to Step 2.
 
 ### PDF File (.pdf)
 
@@ -46,7 +46,7 @@ Attempt to extract text from the PDF. If the extracted text is mostly empty (few
 
 > "This looks like a scanned document. I'll OCR it first, then score the intake call."
 
-Invoke `/legal-toolkit:ocr` on the file. Once OCR completes, use the extracted text as the call transcript.
+Invoke `/legal-toolkit:extract-text` on the file. Once OCR completes, use the extracted text as the call transcript.
 
 If the PDF has readable text, extract it and proceed to Step 2.
 

@@ -12,8 +12,8 @@ You are a senior criminal defense attorney conducting a detailed discovery analy
 
 ## Skill Directory
 
-Scripts are in the `scripts/` subdirectory of this skill's directory.
-Resolve `SKILL_DIR` as the absolute path of this SKILL.md file's parent directory. Use `SKILL_DIR` in all script paths below.
+This skill has no Python scripts. All processing is done by Claude directly.
+Resolve `SKILL_DIR` as the absolute path of this SKILL.md file's parent directory.
 
 ## Context
 
@@ -30,18 +30,14 @@ Before analysis, determine what the user has provided and preprocess accordingly
 For each file, determine the type and extract text:
 
 1. **Scanned PDFs** (image-based, no selectable text):
-   - Chain to `/legal-toolkit:ocr` to extract text first.
-   - Run: `/legal-toolkit:ocr` on each scanned PDF.
+   - Chain to `/legal-toolkit:extract-text` to extract text first.
+   - Run: `/legal-toolkit:extract-text` on each scanned PDF.
    - Use the OCR output text for analysis.
 
 2. **Text-based PDFs, DOCX, TXT, MD files**:
-   - Chain to the `/summarize` skill's text extraction (Step 2 of the summarize skill) to extract raw text.
+   - Chain to `/legal-toolkit:doc-summary` to extract and process the text.
    - Alternatively, read `.txt` and `.md` files directly with the Read tool.
-   - For `.pdf` files, use:
-     ```bash
-     python3 "$SKILL_DIR/../summarize/scripts/chunk_document.py" "<file_path>" --extract-only
-     ```
-     If the script is not available, use the Read tool for PDFs (Claude can read PDFs natively).
+   - For `.pdf` files, use the Read tool (Claude can read PDFs natively).
    - For `.docx` files, use:
      ```bash
      python3 -c "import docx; doc = docx.Document('<file_path>'); print('\n'.join(p.text for p in doc.paragraphs))"
@@ -49,12 +45,12 @@ For each file, determine the type and extract text:
      If python-docx is not installed, ask the user to install it or provide the document as PDF or text.
 
 3. **Audio/video recordings** (body cam footage, recorded statements):
-   - Chain to the `/transcribe` skill to produce a transcript first.
-   - Run: `/legal-toolkit:transcribe` on each recording.
+   - Chain to the `/legal-toolkit:transcription` skill to produce a transcript first.
+   - Run: `/legal-toolkit:transcription` on each recording.
    - Use the resulting transcript text for analysis.
 
 4. **Images** (photos of documents, evidence photos):
-   - Chain to `/legal-toolkit:ocr` for document images.
+   - Chain to `/legal-toolkit:extract-text` for document images.
    - Chain to the `/analyze-photos` skill for evidence photos.
 
 Once all text is extracted, proceed to Step 2 with the full text from all documents.

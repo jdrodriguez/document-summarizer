@@ -33,7 +33,7 @@ The user may provide different types of input. Detect and handle each:
 If the user provides `.mp3`, `.wav`, `.m4a`, `.flac`, `.ogg`, `.wma`, `.aac`, `.mp4`, `.mov`, `.avi`, `.mkv`, or `.webm` files:
 
 1. Tell the user: "I see you've provided audio/video recordings. I'll transcribe these first to extract patterns from your past calls, then build an adaptive script based on what works."
-2. **Chain to the transcribe skill** -- for each recording, invoke `/legal-toolkit:transcribe` on the file.
+2. **Chain to the transcribe skill** -- for each recording, invoke `/legal-toolkit:transcription` on the file.
 3. Once transcription is complete, read the resulting transcript files and proceed to Step 2 with the transcript text as source material.
 
 ### PDF/DOCX Documents (existing scripts, transcripts, or notes)
@@ -42,7 +42,7 @@ If the user provides `.pdf`, `.docx`, `.doc`, or `.rtf` files:
 
 1. Extract the text content:
    - For `.pdf`: Use the Read tool (Claude can read PDFs natively).
-   - For `.docx`/`.doc`: Use the Read tool or invoke `/legal-toolkit:summarize` to extract text if needed.
+   - For `.docx`/`.doc`: Use the Read tool or invoke `/legal-toolkit:doc-summary` to extract text if needed.
 2. Proceed to Step 2 with the extracted text as source material.
 
 ### Plain Text / Markdown
@@ -218,7 +218,7 @@ Include guidance for special situations:
 
 If the user requests a document:
 
-1. Offer to generate a `.docx` using the `npm docx` package or by chaining to `/legal-toolkit:summarize` with the script content.
+1. Offer to generate a `.docx` using the `npm docx` package or by chaining to `/legal-toolkit:doc-summary` with the script content.
 2. The document should include:
    - Title page with firm name and "Intake Call Script" header
    - Table of contents

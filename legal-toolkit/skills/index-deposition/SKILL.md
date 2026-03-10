@@ -117,7 +117,7 @@ Ask the user:
    - Topic-by-topic breakdown
    - Full transcript appendix
 
-2. "Would you like me to run the transcript through `/legal-toolkit:summarize` for a detailed analysis?" — If yes, pipe `$OUTPUT_DIR/transcript.txt` to the summarizer skill.
+2. "Would you like me to run the transcript through `/legal-toolkit:doc-summary` for a detailed analysis?" — If yes, pipe `$OUTPUT_DIR/transcript.txt` to the summarizer skill.
 
 ## Error Handling
 

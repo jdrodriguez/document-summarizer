@@ -142,7 +142,7 @@ The final deliverable is a `.docx` file placed **in the same folder as the origi
 - **Directory**: `Summary_{dirname}.docx`
 
 **How to generate the file**:
-Use the `docx` skill (invoke with `/docx`) to produce the .docx from a Node.js script. The docx skill reads `docx-js.md` for the API reference.
+Use the npm `docx` package to generate the .docx file from a Node.js script.
 
 Also write a plain-text copy to `{WORK_DIR}/final_summary.md` for reference.
 

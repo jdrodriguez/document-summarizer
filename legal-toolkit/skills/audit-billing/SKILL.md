@@ -80,7 +80,7 @@ Tell the user about the generated files:
 
 Ask: "Would you like me to generate a formal audit report as a Word document (.docx)?"
 
-If yes, use the `docx` skill (invoke with `/docx`) to produce a professional audit report containing:
+If yes, use the npm `docx` package to generate a professional audit report containing:
 1. **Title page**: "Billing Audit Report", date, matter information
 2. **Executive Summary**: Key findings and estimated savings
 3. **Methodology**: Audit rules applied

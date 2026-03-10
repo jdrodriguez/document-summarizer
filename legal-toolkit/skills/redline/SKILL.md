@@ -21,7 +21,7 @@ Resolve `SKILL_DIR` as the absolute path of this SKILL.md file's parent director
 
 1. Confirm the user provided two .docx file paths. If not, ask: "Please provide the paths to the original and revised contract (.docx files). The first should be the original, and the second the revised version."
 2. Verify both files exist and have the `.docx` extension.
-3. If a user provides PDFs or other formats, suggest converting to .docx first, or suggest using `/legal-toolkit:compare-documents` which supports more formats.
+3. If a user provides PDFs or other formats, suggest converting to .docx first, or suggest using `/legal-toolkit:doc-diff` which supports more formats.
 
 ### Step 2: Check Dependencies
 
@@ -81,12 +81,12 @@ Present these options:
 1. **Deep analysis of high-risk changes**: "Would you like me to analyze each high-risk change in detail? I can explain the legal implications of each modification."
 2. **Generate a change memo**: Use the `docx` skill to create a formal change memorandum suitable for client review, listing all material changes with risk ratings.
 3. **Compare with original summary**: "If you have a summary of the original contract, I can highlight which key terms were affected by the changes."
-4. **Visual comparison**: "For a visual side-by-side diff, use `/legal-toolkit:compare-documents` with these same files."
+4. **Visual comparison**: "For a visual side-by-side diff, use `/legal-toolkit:doc-diff` with these same files."
 
 ## Error Handling
 
 - **Path not found**: Ask user to verify the paths
-- **Not .docx format**: This tool requires .docx files. Suggest `/legal-toolkit:compare-documents` for PDFs and other formats.
+- **Not .docx format**: This tool requires .docx files. Suggest `/legal-toolkit:doc-diff` for PDFs and other formats.
 - **Identical documents**: Report that no differences were found
 - **Corrupted .docx**: If python-docx cannot open the file, report the error and suggest the user verify the file opens in Word
 - **Script not found**: Verify the skill is installed (`ls $SKILL_DIR/scripts/`)

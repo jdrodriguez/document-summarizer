@@ -40,7 +40,7 @@ If the user provides a PDF with case data (e.g., a CRM report export, court dock
 
 1. Read the PDF using the Read tool (it handles PDF files)
 2. Extract tabular data from the text -- look for consistent spacing, delimiters, or table structures
-3. If the PDF is image-based or unreadable, suggest the user run `/legal-toolkit:ocr` on it first, then re-run this skill on the OCR output
+3. If the PDF is image-based or unreadable, suggest the user run `/legal-toolkit:extract-text` on it first, then re-run this skill on the OCR output
 
 ### Text or Pasted Data
 

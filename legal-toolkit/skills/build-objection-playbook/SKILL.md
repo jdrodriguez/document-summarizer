@@ -31,13 +31,13 @@ The user may provide input in several forms. Detect and handle each:
 ### Audio/Video Files (.mp3, .wav, .m4a, .mp4, .mov, .flac, .ogg, .webm, etc.)
 The user has a recording of an intake call containing objections. Chain to the transcribe skill first:
 - Tell the user: "This is an audio/video file — I'll transcribe it first, then extract objections from the transcript."
-- Invoke `/legal-toolkit:transcribe` with the provided file path.
+- Invoke `/legal-toolkit:transcription` with the provided file path.
 - Once transcription is complete, read the resulting `transcript.txt` from the work directory.
 - Proceed to Step 2 with the transcript text.
 
 ### PDF/DOCX Files
 The user has written objection notes or call logs in a document:
-- For **PDF**: Use the Read tool to extract text content. If the PDF is scanned/image-based, chain to `/legal-toolkit:ocr` first.
+- For **PDF**: Use the Read tool to extract text content. If the PDF is scanned/image-based, chain to `/legal-toolkit:extract-text` first.
 - For **DOCX**: Use `python3 -c "from docx import Document; doc = Document('<path>'); print('\n'.join(p.text for p in doc.paragraphs))"` to extract text.
 - Proceed to Step 2 with the extracted text.
 

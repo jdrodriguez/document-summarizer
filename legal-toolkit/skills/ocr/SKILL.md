@@ -78,14 +78,14 @@ If any pages have confidence below 0.70, warn the user:
 
 Present these options to the user:
 
-1. **Summarize the extracted text**: "Would you like me to summarize the extracted content? I can pipe it to `/legal-toolkit:summarize`."
+1. **Summarize the extracted text**: "Would you like me to summarize the extracted content? I can pipe it to `/legal-toolkit:doc-summary`."
 2. **Generate a searchable PDF**: "I can create a searchable PDF with the OCR text layer embedded."
 3. **Generate a Word document**: "I can create a .docx report with the extracted text, organized by page."
 4. **Review specific pages**: "Would you like to review the extracted text for specific pages?"
 
 ### Step 6: Generate Output Report (if requested)
 
-If the user wants a .docx report, use the `docx` skill (invoke with `/docx`) to produce a Word document containing:
+If the user wants a .docx report, use the npm `docx` package to generate a Word document containing:
 
 - **Title**: "OCR Extraction Report: {filename}"
 - **Metadata**: Source file, pages processed, OCR engine, average confidence

@@ -79,7 +79,7 @@ Present these options:
 
 1. **Generate a formal change summary (.docx)**: Use the `docx` skill to create a Word document listing all changes with context.
 2. **Focus on specific sections**: "Would you like me to analyze changes in a particular section in more detail?"
-3. **Generate redline**: "For a tracked-changes version, use `/legal-toolkit:redline` with the same two files."
+3. **Generate redline**: "For a tracked-changes version, use `/legal-toolkit:track-changes` with the same two files."
 4. **Export change log**: "The structured change log is at `$OUTPUT_DIR/change_log.json` if you need it for further processing."
 
 ## Error Handling
@@ -87,5 +87,5 @@ Present these options:
 - **Path not found**: Ask user to verify the paths
 - **Unsupported format**: Supported types are `.pdf`, `.docx`, `.txt`
 - **Identical documents**: Report that no differences were found
-- **Empty extraction**: File may be scanned/image-only; suggest running `/legal-toolkit:ocr` first
+- **Empty extraction**: File may be scanned/image-only; suggest running `/legal-toolkit:extract-text` first
 - **Script not found**: Verify the skill is installed (`ls $SKILL_DIR/scripts/`)

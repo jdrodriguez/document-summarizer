@@ -24,7 +24,7 @@ import sys
 from datetime import datetime
 
 from docx import Document
-from docx.shared import Pt, Inches, Cm, RGBColor
+from docx.shared import Pt, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.enum.style import WD_STYLE_TYPE
@@ -385,7 +385,7 @@ def main():
         result = build_document(args.work_dir, args.output_path, analysis)
         print(json.dumps({"status": "ok", "output_path": result}))
     except Exception as e:
-        print(json.dumps({"status": "error", "error": str(e)}), file=sys.stderr)
+        print(json.dumps({"status": "error", "error": str(e)}))
         sys.exit(1)
 
 
